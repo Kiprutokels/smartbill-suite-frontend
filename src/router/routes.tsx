@@ -1,34 +1,34 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { PrivateRoute } from './PrivateRoute';
-import { PermissionRoute } from './PermissionRoute';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { PrivateRoute } from "./PrivateRoute";
+import { PermissionRoute } from "./PermissionRoute";
 
 // Layout
-import { MainLayout } from '../components/layout/MainLayout';
+import { MainLayout } from "../components/layout/MainLayout";
 
 // Pages
-import { LoginPage } from '../pages/auth/LoginPage';
-import { DashboardPage } from '../pages/dashboard/DashboardPage';
-import { CustomersPage } from '../pages/customers/CustomersPage';
-import { CreateCustomerPage } from '../pages/customers/CreateCustomerPage';
-import { CustomerDetailPage } from '../pages/customers/CustomerDetailPage';
-import { ProductsPage } from '../pages/products/ProductsPage';
-// import { CreateProductPage } from '../pages/products/CreateProductPage';
-import { ProductDetailPage } from '../pages/products/ProductDetailPage';
-import { CategoriesPage } from '../pages/products/CategoriesPage';
-import { BrandsPage } from '../pages/products/BrandsPage';
-import { InventoryPage } from '../pages/inventory/InventoryPage';
-import { InvoicesPage } from '../pages/invoices/InvoicesPage';
-import { CreateInvoicePage } from '../pages/invoices/CreateInvoicePage';
-import { InvoiceDetailPage } from '../pages/invoices/InvoiceDetailPage';
-import { PaymentsPage } from '../pages/payments/PaymentsPage';
-import { ProcessPaymentPage } from '../pages/payments/ProcessPaymentPage';
-import { ReceiptsPage } from '../pages/payments/ReceiptsPage';
-import { ProfilePage } from '../pages/settings/ProfilePage';
-import { UsersPage } from '../pages/settings/UsersPage';
-import { SystemSettingsPage } from '../pages/settings/SystemSettingsPage';
+import { LoginPage } from "../pages/auth/LoginPage";
+import { DashboardPage } from "../pages/dashboard/DashboardPage";
+import { CustomersPage } from "../pages/customers/CustomersPage";
+import { CreateCustomerPage } from "../pages/customers/CreateCustomerPage";
+import { CustomerDetailPage } from "../pages/customers/CustomerDetailPage";
+import { ProductsPage } from "../pages/products/ProductsPage";
+import { CreateProductPage } from "../pages/products/CreateProductPage";
+import { ProductDetailPage } from "../pages/products/ProductDetailPage";
+import { CategoriesPage } from "../pages/products/CategoriesPage";
+import { BrandsPage } from "../pages/products/BrandsPage";
+import { InventoryPage } from "../pages/inventory/InventoryPage";
+import { InvoicesPage } from "../pages/invoices/InvoicesPage";
+import { CreateInvoicePage } from "../pages/invoices/CreateInvoicePage";
+import { InvoiceDetailPage } from "../pages/invoices/InvoiceDetailPage";
+import { PaymentsPage } from "../pages/payments/PaymentsPage";
+import { ProcessPaymentPage } from "../pages/payments/ProcessPaymentPage";
+import { ReceiptsPage } from "../pages/payments/ReceiptsPage";
+import { ProfilePage } from "../pages/settings/ProfilePage";
+import { UsersPage } from "../pages/settings/UsersPage";
+import { SystemSettingsPage } from "../pages/settings/SystemSettingsPage";
 
 // Utils
-import { ROUTES, PERMISSIONS } from '../utils/constants';
+import { ROUTES, PERMISSIONS } from "../utils/constants";
 
 export const router = createBrowserRouter([
   {
@@ -36,11 +36,11 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: '/',
+    path: "/",
     element: <Navigate to={ROUTES.DASHBOARD} replace />,
   },
   {
-    path: '/',
+    path: "/",
     element: (
       <PrivateRoute>
         <MainLayout />
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/customers/create',
+        path: "/customers/create",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.CUSTOMERS_CREATE]}>
             <CreateCustomerPage />
@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/customers/:id',
+        path: "/customers/:id",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.CUSTOMERS_READ]}>
             <CustomerDetailPage />
@@ -85,16 +85,16 @@ export const router = createBrowserRouter([
           </PermissionRoute>
         ),
       },
-      // {
-      //   path: '/products/create',
-      //   element: (
-      //     <PermissionRoute requiredPermissions={[PERMISSIONS.PRODUCTS_CREATE]}>
-      //       <CreateProductPage />
-      //     </PermissionRoute>
-      //   ),
-      // },
       {
-        path: '/products/:id',
+        path: "/products/create",
+        element: (
+          <PermissionRoute requiredPermissions={[PERMISSIONS.PRODUCTS_CREATE]}>
+            <CreateProductPage />
+          </PermissionRoute>
+        ),
+      },
+      {
+        path: "/products/:id",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.PRODUCTS_READ]}>
             <ProductDetailPage />
@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/products/categories',
+        path: "/products/categories",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.PRODUCTS_READ]}>
             <CategoriesPage />
@@ -110,7 +110,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/products/brands',
+        path: "/products/brands",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.PRODUCTS_READ]}>
             <BrandsPage />
@@ -136,7 +136,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/invoices/create',
+        path: "/invoices/create",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.SALES_CREATE]}>
             <CreateInvoicePage />
@@ -144,7 +144,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/invoices/:id',
+        path: "/invoices/:id",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.SALES_READ]}>
             <InvoiceDetailPage />
@@ -161,7 +161,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/payments/process',
+        path: "/payments/process",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.PAYMENTS_CREATE]}>
             <ProcessPaymentPage />
@@ -169,7 +169,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/payments/receipts',
+        path: "/payments/receipts",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.PAYMENTS_READ]}>
             <ReceiptsPage />
@@ -178,11 +178,11 @@ export const router = createBrowserRouter([
       },
       // Settings routes
       {
-        path: '/settings/profile',
+        path: "/settings/profile",
         element: <ProfilePage />,
       },
       {
-        path: '/settings/users',
+        path: "/settings/users",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.USERS_READ]}>
             <UsersPage />
@@ -190,7 +190,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/settings/system',
+        path: "/settings/system",
         element: (
           <PermissionRoute requiredPermissions={[PERMISSIONS.USERS_READ]}>
             <SystemSettingsPage />
@@ -200,7 +200,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

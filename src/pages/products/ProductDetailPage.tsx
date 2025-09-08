@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Badge } from '../../components/ui/Badge';
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner';
 import { productsService, Product } from '../../api/services/products.service';
-import { inventoryService } from '../../api/services/inventory.service';
 import { formatCurrency, formatDate } from '../../utils';
 import { PERMISSIONS } from '../../utils/constants';
 import { useAuth } from '../../hooks/useAuth';
@@ -105,7 +104,7 @@ const ProductDetailPage: React.FC = () => {
           </div>
         </div>
         {hasPermission(PERMISSIONS.PRODUCTS_UPDATE) && (
-          <Button asChild>
+          <Button>
             <Link to={`/products/${product.id}/edit`}>
               <Edit className="mr-2 h-4 w-4" />
               Edit Product
@@ -273,7 +272,7 @@ const ProductDetailPage: React.FC = () => {
             </CardHeader>
             <CardContent className="space-y-3">
               {hasPermission(PERMISSIONS.INVENTORY_UPDATE) && (
-                <Button className="w-full" asChild>
+                <Button className="w-full">
                   <Link to={`/inventory/adjust?productId=${product.id}`}>
                     <Package className="mr-2 h-4 w-4" />
                     Adjust Stock
@@ -281,14 +280,14 @@ const ProductDetailPage: React.FC = () => {
                 </Button>
               )}
               
-              <Button variant="outline" className="w-full" asChild>
+              <Button variant="outline" className="w-full" >
                 <Link to={`/inventory?productId=${product.id}`}>
                   <TrendingUp className="mr-2 h-4 w-4" />
                   View Inventory
                 </Link>
               </Button>
               
-              <Button variant="outline" className="w-full" asChild>
+              <Button variant="outline" className="w-full" >
                 <Link to={`/products/${product.id}/history`}>
                   <Clock className="mr-2 h-4 w-4" />
                   Stock History

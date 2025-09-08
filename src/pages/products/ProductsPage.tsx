@@ -132,17 +132,17 @@ const ProductsPage: React.FC = () => {
         </div>
         {hasPermission(PERMISSIONS.PRODUCTS_CREATE) && (
           <div className="flex gap-2">
-            <Button variant="outline" asChild>
+            <Button variant="outline">
               <Link to="/products/categories">
                 Manage Categories
               </Link>
             </Button>
-            <Button variant="outline" asChild>
+            <Button variant="outline">
               <Link to="/products/brands">
                 Manage Brands
               </Link>
             </Button>
-            <Button asChild>
+            <Button>
               <Link to="/products/create">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Product
@@ -304,7 +304,6 @@ const ProductsPage: React.FC = () => {
                             <Button
                               variant="ghost"
                               size="icon"
-                              asChild
                             >
                               <Link to={`/products/${product.id}`}>
                                 <Eye className="h-4 w-4" />
@@ -315,7 +314,6 @@ const ProductsPage: React.FC = () => {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                asChild
                               >
                                 <Link to={`/products/${product.id}/edit`}>
                                   <Edit className="h-4 w-4" />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Plus, Edit, Trash2, Folder, FolderOpen } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
@@ -182,7 +182,7 @@ const CategoriesPage: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon">
             <Link to="/products">
               <ArrowLeft className="h-4 w-4" />
             </Link>
