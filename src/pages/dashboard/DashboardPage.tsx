@@ -1,199 +1,176 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/Card';
-import { useAuth } from '../../hooks/useAuth';
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
+import { 
+  DollarSign, 
+  Package, 
+  Users, 
+  ShoppingCart,
+  TrendingUp,
+  AlertTriangle 
+} from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
-  const { user } = useAuth();
+  const stats = {
+    totalRevenue: 125400,
+    totalProducts: 342,
+    totalCustomers: 89,
+    pendingOrders: 12,
+    lowStockItems: 8,
+    monthlyGrowth: 12.5
+  };
+
+  const recentTransactions = [
+    { id: 1, customer: 'ABC Electronics', amount: 2500, date: '2025-01-15', status: 'Paid' },
+    { id: 2, customer: 'Tech Solutions', amount: 1800, date: '2025-01-14', status: 'Pending' },
+    { id: 3, customer: 'Network Systems', amount: 3200, date: '2025-01-14', status: 'Paid' },
+  ];
+
+  const lowStockProducts = [
+    { id: 1, name: 'TP-Link Router AC1200', stock: 3, reorderLevel: 10 },
+    { id: 2, name: 'Cat6 Ethernet Cable', stock: 5, reorderLevel: 25 },
+    { id: 3, name: 'Power Extension 5M', stock: 2, reorderLevel: 15 },
+  ];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome back, {user?.firstName}! Here's what's happening today.
-        </p>
+    <div className="w-full max-w-none">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">Dashboard</h1>
+        <div className="text-sm text-muted-foreground">
+          Last updated: {new Date().toLocaleDateString()}
+        </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+        <Card className="border-l-4 border-l-primary">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M12 2v20m8-10H4" />
-            </svg>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total Revenue
+            </CardTitle>
+            <DollarSign className="h-4 w-4 text-primary flex-shrink-0" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">KES 45,231.00</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
+            <div className="text-xl md:text-2xl font-bold text-foreground">
+              KES {stats.totalRevenue.toLocaleString()}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              <span className="text-green-600 font-medium">+{stats.monthlyGrowth}%</span> from last month
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-accent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Customers</CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total Products
+            </CardTitle>
+            <Package className="h-4 w-4 text-accent flex-shrink-0" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+234</div>
-            <p className="text-xs text-muted-foreground">
-              +18% from last month
+            <div className="text-xl md:text-2xl font-bold text-foreground">
+              {stats.totalProducts}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Active inventory items
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-blue-500">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Invoices</CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <rect width="20" height="14" x="2" y="5" rx="2" />
-              <path d="M2 10h20" />
-            </svg>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Customers
+            </CardTitle>
+            <Users className="h-4 w-4 text-blue-500 flex-shrink-0" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+89</div>
-            <p className="text-xs text-muted-foreground">
-              +4% from last month
+            <div className="text-xl md:text-2xl font-bold text-foreground">
+              {stats.totalCustomers}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Active customers
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-yellow-500">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Low Stock Items</CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Pending Orders
+            </CardTitle>
+            <ShoppingCart className="h-4 w-4 text-yellow-500 flex-shrink-0" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">
-              Need immediate attention
+            <div className="text-xl md:text-2xl font-bold text-foreground">
+              {stats.pendingOrders}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Awaiting processing
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
+      {/* Content Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6">
+        {/* Recent Transactions */}
+        <Card className="min-w-0">
           <CardHeader>
-            <CardTitle>Recent Invoices</CardTitle>
-            <CardDescription>Latest invoices created this week</CardDescription>
+            <CardTitle className="flex items-center space-x-2">
+              <TrendingUp className="h-5 w-5 text-primary flex-shrink-0" />
+              <span>Recent Transactions</span>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">INV-2024-001</p>
-                  <p className="text-sm text-muted-foreground">Tech Solutions Ltd</p>
+              {recentTransactions.map((transaction) => (
+                <div key={transaction.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground truncate">{transaction.customer}</p>
+                    <p className="text-sm text-muted-foreground">{transaction.date}</p>
+                  </div>
+                  <div className="text-right ml-4 flex-shrink-0">
+                    <p className="font-medium text-foreground">KES {transaction.amount.toLocaleString()}</p>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      transaction.status === 'Paid' 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                    }`}>
+                      {transaction.status}
+                    </span>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="font-medium">KES 12,450.00</p>
-                  <p className="text-sm text-muted-foreground">Pending</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">INV-2024-002</p>
-                  <p className="text-sm text-muted-foreground">Digital Corp</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-medium">KES 8,750.00</p>
-                  <p className="text-sm text-green-600">Paid</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">INV-2024-003</p>
-                  <p className="text-sm text-muted-foreground">Network Systems</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-medium">KES 15,200.00</p>
-                  <p className="text-sm text-muted-foreground">Sent</p>
-                </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        {/* Low Stock Alerts */}
+        <Card className="min-w-0">
           <CardHeader>
-            <CardTitle>Low Stock Alert</CardTitle>
-            <CardDescription>Products running low on inventory</CardDescription>
+            <CardTitle className="flex items-center space-x-2">
+              <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0" />
+              <span>Low Stock Alerts</span>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">TP-Link AC1750 Router</p>
-                  <p className="text-sm text-muted-foreground">SKU: TP-AC1750</p>
+              {lowStockProducts.map((product) => (
+                <div key={product.id} className="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground truncate">{product.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Reorder Level: {product.reorderLevel}
+                    </p>
+                  </div>
+                  <div className="ml-4 flex-shrink-0">
+                    <span className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-3 py-1 rounded-full text-sm font-medium">
+                      {product.stock} left
+                    </span>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="font-medium text-red-600">2 left</p>
-                  <p className="text-sm text-muted-foreground">Reorder: 5</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Network Cable Cat6</p>
-                  <p className="text-sm text-muted-foreground">SKU: CAB-CAT6</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-medium text-yellow-600">8 left</p>
-                  <p className="text-sm text-muted-foreground">Reorder: 10</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Power Extension</p>
-                  <p className="text-sm text-muted-foreground">SKU: PWR-EXT-4</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-medium text-yellow-600">3 left</p>
-                  <p className="text-sm text-muted-foreground">Reorder: 5</p>
-                </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>

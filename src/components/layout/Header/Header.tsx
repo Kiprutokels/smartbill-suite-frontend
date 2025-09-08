@@ -1,50 +1,54 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import { Button } from '../../ui/Button';
-import { UserMenu } from '../UserMenu';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from '../../ui/DropdownMenu';
+import { Avatar, AvatarFallback } from '../../ui/Avatar';
+import { SidebarTrigger } from '../../ui/Sidebar';
 import { ThemeToggle } from '../ThemeToggle';
-import { APP_NAME } from '../../../utils/constants';
+import { useAuth } from '../../../hooks/useAuth';
 
-interface HeaderProps {
-  onMenuClick: () => void;
-}
+export const Header: React.FC = () => {
+  const { user, logout } = useAuth();
 
-const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center px-4 sm:px-6">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden mr-2"
-          onClick={onMenuClick}
-        >
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle menu</span>
-        </Button>
-
-        {/* Show app name on mobile when sidebar is closed */}
-        <div className="flex items-center space-x-2 lg:hidden">
-          <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">EB</span>
-          </div>
-          <h1 className="font-semibold text-lg">{APP_NAME}</h1>
-        </div>
-
-        {/* Desktop app name */}
-        <div className="hidden lg:flex items-center space-x-2">
-          <h1 className="font-semibold text-lg">{APP_NAME}</h1>
-        </div>
-
-        <div className="flex-1" />
-
-        <div className="flex items-center space-x-2">
-          <ThemeToggle />
-          <UserMenu />
-        </div>
+    <header className="h-16 border-b border-border bg-card px-6 flex items-center justify-between">
+      <div className="flex items-center space-x-4 flex-1">
+        <SidebarTrigger className="md:hidden" />
+        {/* Page title will be added here later */}
+      </div>
+      
+      <div className="flex items-center space-x-4">
+        <ThemeToggle />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+              <Avatar className="h-10 w-10">
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                </AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem className="flex items-center space-x-2">
+              <User className="h-4 w-4" />
+              <div>
+                <p className="text-sm font-medium">{user?.firstName} {user?.lastName}</p>
+                <p className="text-xs text-muted-foreground">{user?.email}</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={logout} className="flex items-center space-x-2 text-destructive">
+              <LogOut className="h-4 w-4" />
+              <span>Sign out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );
 };
-
-export { Header };
